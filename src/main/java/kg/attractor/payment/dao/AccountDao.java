@@ -8,8 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -65,5 +65,21 @@ public class AccountDao {
         String sql = "SELECT COUNT(*) FROM accounts WHERE id = ? AND user_phone = ?";
         Integer count = jdbcTemplate.queryForObject(sql, new Object[]{accountId, userPhone}, Integer.class);
         return count != null && count > 0;
+    }
+
+    public Optional<Account> findById(int accountId) {
+        String sql = "SELECT * FROM accounts WHERE id = ?";
+        try {
+            Account account = jdbcTemplate.queryForObject(sql, new Object[]{accountId},
+                    (rs, rowNum) -> Account.builder()
+                            .id(rs.getInt("id"))
+                            .userPhone(rs.getString("user_phone"))
+                            .currency(rs.getString("currency"))
+                            .balance(rs.getBigDecimal("balance"))
+                            .build());
+            return Optional.ofNullable(account);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 }

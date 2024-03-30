@@ -1,13 +1,14 @@
 package kg.attractor.payment.controller;
 
+import kg.attractor.payment.dto.ApprovalRequestDto;
+import kg.attractor.payment.dto.RollbackRequestDto;
 import kg.attractor.payment.dto.TransactionDto;
 import kg.attractor.payment.service.ApprovalService;
+import kg.attractor.payment.service.RollbackService;
 import kg.attractor.payment.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ import java.util.List;
 public class AdminController {
     private final TransactionService transactionService;
     private final ApprovalService approvalService;
+    private final RollbackService rollbackService;
+
 
     @GetMapping("/transactions")
     public ResponseEntity<List<TransactionDto>> getAllTransactions() {
@@ -29,5 +32,18 @@ public class AdminController {
         List<TransactionDto> transactions = approvalService.getTransactionsRequiringApproval();
         return ResponseEntity.ok(transactions);
     }
+
+    @PostMapping("/transactions/approval")
+    public ResponseEntity<?> approveTransaction(@RequestBody ApprovalRequestDto approvalRequest) {
+        approvalService.approveTransaction(approvalRequest.getTransactionId());
+        return ResponseEntity.ok("Approved");
+    }
+
+    @PostMapping("/rollback")
+    public ResponseEntity<?> rollbackTransaction(@RequestBody RollbackRequestDto rollbackRequest) {
+        rollbackService.rollbackTransaction(rollbackRequest);
+        return ResponseEntity.ok().body("Transaction has been rolled back successfully");
+    }
+
 
 }

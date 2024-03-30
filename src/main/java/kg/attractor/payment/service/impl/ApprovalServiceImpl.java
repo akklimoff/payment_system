@@ -30,4 +30,8 @@ public class ApprovalServiceImpl implements ApprovalService {
                 transaction.getTransactionTime()
         )).collect(Collectors.toList());
     }
+    @Override
+    public void approveTransaction(int transactionId) {
+        approvalDao.approveTransaction(transactionId);
+    }
 }

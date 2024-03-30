@@ -28,4 +28,12 @@ public class ApprovalDao {
                 .transactionTime(rs.getTimestamp("transaction_time"))
                 .build());
     }
+
+    public void approveTransaction(int transactionId) {
+        String sqlUpdateApproval = "UPDATE approvals SET is_approved = true WHERE transaction_id = ?";
+        jdbcTemplate.update(sqlUpdateApproval, transactionId);
+
+        String sqlUpdateTransaction = "UPDATE transactions SET status = 'Approved' WHERE id = ?";
+        jdbcTemplate.update(sqlUpdateTransaction, transactionId);
+    }
 }

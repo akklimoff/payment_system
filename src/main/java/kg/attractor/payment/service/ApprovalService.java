@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ApprovalService {
     List<TransactionDto> getTransactionsRequiringApproval();
+    void approveTransaction(int transactionId);
 }
