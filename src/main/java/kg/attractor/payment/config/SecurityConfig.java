@@ -54,6 +54,11 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/accounts/**").hasAuthority("DEFAULT")
                                 .requestMatchers(HttpMethod.PUT, "/accounts/**").hasAuthority("DEFAULT")
                                 .requestMatchers(HttpMethod.DELETE, "/accounts/**").hasAuthority("DEFAULT")
+
+                                .requestMatchers(HttpMethod.GET, "/transactions/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.POST, "/transactions/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.PUT, "/transactions/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.DELETE, "/transactions/**").hasAuthority("DEFAULT")
                                 .anyRequest().permitAll()
                 );
         return http.build();

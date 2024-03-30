@@ -60,4 +60,10 @@ public class AccountDao {
                         .build()
         );
     }
+
+    public boolean existsByAccountIdAndUserPhone(int accountId, String userPhone) {
+        String sql = "SELECT COUNT(*) FROM accounts WHERE id = ? AND user_phone = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{accountId, userPhone}, Integer.class);
+        return count != null && count > 0;
+    }
 }
