@@ -11,4 +11,5 @@ public class User {
     private String phone;
     private String username;
     private String password;
+    private boolean enabled;
 }
