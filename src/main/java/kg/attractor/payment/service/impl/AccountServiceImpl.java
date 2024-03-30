@@ -23,12 +23,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void createAccount(AccountDto accountDto, Authentication auth) {
         String userPhone = auth.getName();
-
         int accountCount = accountDao.countAccountsByUserPhone(userPhone);
         if (accountCount >= 3) {
             throw new IllegalStateException("User can have only up to 3 accounts");
         }
-
         Account account = Account.builder()
                 .userPhone(userPhone)
                 .currency(accountDto.getCurrency())
@@ -41,6 +39,7 @@ public class AccountServiceImpl implements AccountService {
     public BigDecimal getAccountBalance(Integer accountId) {
         return accountDao.getBalanceByAccountId(accountId);
     }
+
 
     @Override
     public void updateAccountBalance(AccountBalanceUpdateDto balanceUpdateDto, String userPhone) {

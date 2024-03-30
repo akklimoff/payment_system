@@ -22,4 +22,10 @@ public class RollbackDao {
         jdbcTemplate.update(sql, transactionId);
     }
 
+    public boolean existsByTransactionId(int transactionId) {
+        String sql = "SELECT COUNT(*) FROM rollbacks WHERE transaction_id = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[] {transactionId}, Integer.class);
+        return count != null && count > 0;
+    }
+
 }

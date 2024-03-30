@@ -12,7 +12,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionRequestDto {
-    private int fromAccountId;
-    private int toAccountId;
+    private int senderAccountId;
+    private int receiverAccountId;
     private BigDecimal amount;
+
 }

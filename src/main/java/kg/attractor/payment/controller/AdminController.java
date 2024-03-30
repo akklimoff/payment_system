@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/admin")
+@RequestMapping("api/admin/transactions")
 @RequiredArgsConstructor
 public class AdminController {
     private final TransactionService transactionService;
@@ -21,19 +21,19 @@ public class AdminController {
     private final RollbackService rollbackService;
 
 
-    @GetMapping("/transactions")
+    @GetMapping()
     public ResponseEntity<List<TransactionDto>> getAllTransactions() {
         List<TransactionDto> transactions = transactionService.getAllTransactions();
         return ResponseEntity.ok(transactions);
     }
 
-    @GetMapping("/transactions/approval")
+    @GetMapping("/approval")
     public ResponseEntity<List<TransactionDto>> getTransactionsRequiringApproval() {
         List<TransactionDto> transactions = approvalService.getTransactionsRequiringApproval();
         return ResponseEntity.ok(transactions);
     }
 
-    @PostMapping("/transactions/approval")
+    @PostMapping("/approval")
     public ResponseEntity<?> approveTransaction(@RequestBody ApprovalRequestDto approvalRequest) {
         approvalService.approveTransaction(approvalRequest.getTransactionId());
         return ResponseEntity.ok("Approved");
@@ -45,5 +45,10 @@ public class AdminController {
         return ResponseEntity.ok().body("Transaction has been rolled back successfully for reason: " + rollbackRequest.getReason());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTransaction(@PathVariable int id) {
+        rollbackService.markTransactionAsDeleted(id);
+        return ResponseEntity.ok().build();
+    }
 
 }

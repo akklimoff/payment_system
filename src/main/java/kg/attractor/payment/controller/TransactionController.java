@@ -23,12 +23,9 @@ public class TransactionController {
         return ResponseEntity.ok(transactions);
     }
 
-//    @PostMapping
-//    public ResponseEntity<Void> makeTransaction(@RequestBody TransactionRequestDto transactionRequest, Authentication auth) throws Exception {
-//        String userPhone = auth.getName();
-//        transactionService.makeTransaction(transactionRequest, userPhone);
-//        return ResponseEntity.ok().build();
-//    }
-
-
+    @PostMapping
+    public ResponseEntity<Void> createTransaction(@RequestBody TransactionRequestDto transactionRequest, Authentication auth) {
+        transactionService.performTransaction(transactionRequest, auth);
+        return ResponseEntity.ok().build();
+    }
 }

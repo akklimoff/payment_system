@@ -42,8 +42,20 @@ public class RollbackServiceImpl implements RollbackService {
 
         transactionDao.updateTransactionStatus(transaction.getId(), "rolled back");
 
-        rollbackDao.deleteApprovalByTransactionId(transaction.getId());
-
         log.info("Transaction {} has been rolled back successfully for reason: {}", rollbackRequest.getTransactionId(), rollbackRequest.getReason());
+    }
+
+    @Override
+    public boolean isTransactionRolledBack(int transactionId) {
+        return rollbackDao.existsByTransactionId(transactionId);
+    }
+
+    @Transactional
+    @Override
+    public void markTransactionAsDeleted(int transactionId) {
+        if (!isTransactionRolledBack(transactionId)) {
+            throw new IllegalStateException("Transaction has not been rolled back");
+        }
+        transactionDao.updateTransactionStatus(transactionId, "deleted");
     }
 }

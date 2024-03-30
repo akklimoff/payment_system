@@ -80,4 +80,15 @@ public class TransactionDao {
         String sql = "UPDATE transactions SET status = ? WHERE id = ?";
         jdbcTemplate.update(sql, status, transactionId);
     }
+
+    public void save(Transaction transaction) {
+        String sql = "INSERT INTO transactions (sender_account_id, receiver_account_id, amount, currency, status, transaction_time) VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql,
+                transaction.getSenderAccountId(),
+                transaction.getReceiverAccountId(),
+                transaction.getAmount(),
+                transaction.getCurrency(),
+                transaction.getStatus(),
+                transaction.getTransactionTime());
+    }
 }
