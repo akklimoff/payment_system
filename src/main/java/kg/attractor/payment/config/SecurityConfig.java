@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
+                                .requestMatchers(HttpMethod.GET, "/accounts/**").hasAuthority("DEFAULT")
                                 .requestMatchers(HttpMethod.POST, "/accounts/**").hasAuthority("DEFAULT")
                                 .requestMatchers(HttpMethod.PUT, "/accounts/**").hasAuthority("DEFAULT")
                                 .requestMatchers(HttpMethod.DELETE, "/accounts/**").hasAuthority("DEFAULT")

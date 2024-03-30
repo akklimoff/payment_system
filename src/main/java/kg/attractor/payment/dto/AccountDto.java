@@ -17,5 +17,5 @@ public class AccountDto {
     private String currency;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Balance must be greater than 0")
-    private BigDecimal balance = BigDecimal.ZERO;
+    private BigDecimal balance;
 }
