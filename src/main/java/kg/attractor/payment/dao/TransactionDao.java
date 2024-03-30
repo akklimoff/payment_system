@@ -75,4 +75,9 @@ public class TransactionDao {
             return Optional.empty();
         }
     }
+
+    public void updateTransactionStatus(int transactionId, String status) {
+        String sql = "UPDATE transactions SET status = ? WHERE id = ?";
+        jdbcTemplate.update(sql, status, transactionId);
+    }
 }

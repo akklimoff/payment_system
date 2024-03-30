@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RollbackRequestDto {
     private int transactionId;
-
+    private String reason;
 }

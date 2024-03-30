@@ -38,8 +38,12 @@ public class RollbackServiceImpl implements RollbackService {
         accountDao.updateBalance(senderAccount.getId(), senderAccount.getBalance().add(transaction.getAmount()));
         accountDao.updateBalance(receiverAccount.getId(), receiverAccount.getBalance().subtract(transaction.getAmount()));
 
-        rollbackDao.createRollbackRecord(rollbackRequest.getTransactionId(), "Rollback executed successfully");
+        rollbackDao.createRollbackRecord(rollbackRequest.getTransactionId(), rollbackRequest.getReason());
 
-        log.info("Transaction {} has been rolled back successfully", rollbackRequest.getTransactionId());
+        transactionDao.updateTransactionStatus(transaction.getId(), "rolled back");
+
+        rollbackDao.deleteApprovalByTransactionId(transaction.getId());
+
+        log.info("Transaction {} has been rolled back successfully for reason: {}", rollbackRequest.getTransactionId(), rollbackRequest.getReason());
     }
 }

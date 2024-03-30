@@ -42,7 +42,7 @@ public class AdminController {
     @PostMapping("/rollback")
     public ResponseEntity<?> rollbackTransaction(@RequestBody RollbackRequestDto rollbackRequest) {
         rollbackService.rollbackTransaction(rollbackRequest);
-        return ResponseEntity.ok().body("Transaction has been rolled back successfully");
+        return ResponseEntity.ok().body("Transaction has been rolled back successfully for reason: " + rollbackRequest.getReason());
     }
 
 

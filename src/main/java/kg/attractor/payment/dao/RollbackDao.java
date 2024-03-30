@@ -17,4 +17,9 @@ public class RollbackDao {
         jdbcTemplate.update(sql, transactionId, new Timestamp(System.currentTimeMillis()), reason);
     }
 
+    public void deleteApprovalByTransactionId(int transactionId) {
+        String sql = "DELETE FROM approvals WHERE transaction_id = ?";
+        jdbcTemplate.update(sql, transactionId);
+    }
+
 }
