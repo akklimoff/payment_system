@@ -1,3 +1,9 @@
 databaseChangeLog:
   - include:
       file: db/changeLog/initial/001_create_tables.yml
+  - include:
+      file: db/changeLog/initial/002_update_users.yml
+  - include:
+      file: db/changeLog/initial/003_create_user_authorities.yml
+  - include:
+      file: db/changeLog/initial/004_create_role_user_table.yml

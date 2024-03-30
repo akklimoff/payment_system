@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: Update USERS
+      author: Aktan
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false

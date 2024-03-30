@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create table USER_AUTHORITY
+      author: Aktan
+      changes:
+        - createTable:
+            tableName: user_authority
+            columns:
+              - column:
+                  name: user_phone
+                  type: varchar(95)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_authority_user_phone
+                    references: users(phone)
+              - column:
+                  name: authority_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_authority_id
+                    references: authorities(id)
+

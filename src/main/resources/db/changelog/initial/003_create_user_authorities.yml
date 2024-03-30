@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create table AUTHORITIES
+      author:
+        Aktan
+      changes:
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(55)
+                  constraints:
+                    nullable: false
