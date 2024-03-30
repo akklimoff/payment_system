@@ -1,7 +1,7 @@
 INSERT INTO users (phone, username, password, ENABLED) VALUES
-    ('996 (777) 12-34-56', 'user1', 'password1', true),
-    ('996 (554) 23-45-67', 'user2', 'password2', true),
-    ('996 (783) 34-56-78', 'user3', 'password3', true),
+    ('996 (777) 12-34-56', 'user1', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true),
+    ('996 (554) 23-45-67', 'user2', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true),
+    ('996 (783) 34-56-78', 'user3', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true),
     ('12345', '12345', 'qwerty', true);
 
 INSERT INTO accounts (user_phone, currency, balance) VALUES
