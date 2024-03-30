@@ -23,7 +23,7 @@ public class SecurityConfig {
 
     private final DataSource dataSource;
 
-    private static final String USER_QUERY = "SELECT email, password, enabled FROM users WHERE email = ?";
+    private static final String USER_QUERY = "SELECT phone, password, enabled FROM users WHERE phone = ?";
 
     private static final String AUTHORITIES_QUERY = """
             select ua.user_phone, a.role from user_authority ua, authorities a
@@ -50,9 +50,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers(HttpMethod.POST, "/vacancies/**").hasAuthority("DEFAULT")
-                                .requestMatchers(HttpMethod.PUT, "/vacancies/**").hasAuthority("DEFAULT")
-                                .requestMatchers(HttpMethod.DELETE, "/vacancies/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.POST, "/accounts/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.PUT, "/accounts/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.DELETE, "/accounts/**").hasAuthority("DEFAULT")
                                 .anyRequest().permitAll()
                 );
         return http.build();

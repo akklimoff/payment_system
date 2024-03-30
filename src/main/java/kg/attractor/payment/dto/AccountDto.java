@@ -13,10 +13,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDto {
-    private int id;
-    private String userPhone;
+    private Integer id;
     private String currency;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Balance must be greater than 0")
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 }
