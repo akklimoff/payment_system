@@ -26,4 +26,32 @@ public class TransactionDao {
                         .transactionTime(rs.getTimestamp("transaction_time"))
                         .build());
     }
+
+    public List<Transaction> findAllTransactions() {
+        String sql = "SELECT * FROM transactions";
+        return jdbcTemplate.query(sql,
+                (rs, rowNum) -> Transaction.builder()
+                        .id(rs.getInt("id"))
+                        .senderAccountId(rs.getInt("sender_account_id"))
+                        .receiverAccountId(rs.getInt("receiver_account_id"))
+                        .amount(rs.getBigDecimal("amount"))
+                        .currency(rs.getString("currency"))
+                        .status(rs.getString("status"))
+                        .transactionTime(rs.getTimestamp("transaction_time"))
+                        .build());
+    }
+
+    public List<Transaction> findTransactionsRequiringApproval() {
+        String sql = "SELECT * FROM transactions WHERE status = 'pending approval'";
+        return jdbcTemplate.query(sql,
+                (rs, rowNum) -> Transaction.builder()
+                        .id(rs.getInt("id"))
+                        .senderAccountId(rs.getInt("sender_account_id"))
+                        .receiverAccountId(rs.getInt("receiver_account_id"))
+                        .amount(rs.getBigDecimal("amount"))
+                        .currency(rs.getString("currency"))
+                        .status(rs.getString("status"))
+                        .transactionTime(rs.getTimestamp("transaction_time"))
+                        .build());
+    }
 }

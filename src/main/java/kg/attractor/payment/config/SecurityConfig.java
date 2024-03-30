@@ -50,15 +50,21 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers(HttpMethod.GET, "/accounts/**").hasAuthority("DEFAULT")
-                                .requestMatchers(HttpMethod.POST, "/accounts/**").hasAuthority("DEFAULT")
-                                .requestMatchers(HttpMethod.PUT, "/accounts/**").hasAuthority("DEFAULT")
+
+                                .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.POST, "/api/accounts/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.PUT, "/api/accounts/**").hasAuthority("DEFAULT")
                                 .requestMatchers(HttpMethod.DELETE, "/accounts/**").hasAuthority("DEFAULT")
 
-                                .requestMatchers(HttpMethod.GET, "/transactions/**").hasAuthority("DEFAULT")
-                                .requestMatchers(HttpMethod.POST, "/transactions/**").hasAuthority("DEFAULT")
-                                .requestMatchers(HttpMethod.PUT, "/transactions/**").hasAuthority("DEFAULT")
-                                .requestMatchers(HttpMethod.DELETE, "/transactions/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.GET, "/api/transactions/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.POST, "/api/transactions/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.PUT, "/api/transactions/**").hasAuthority("DEFAULT")
+                                .requestMatchers(HttpMethod.DELETE, "/api/transactions/**").hasAuthority("DEFAULT")
+
+                                .requestMatchers(HttpMethod.GET, "/api/admin/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/admin/**").hasAuthority("ADMIN")
                                 .anyRequest().permitAll()
                 );
         return http.build();
