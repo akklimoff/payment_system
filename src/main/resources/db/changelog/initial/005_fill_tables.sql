@@ -2,7 +2,7 @@ INSERT INTO users (phone, username, password, ENABLED) VALUES
     ('996 (777) 12-34-56', 'user1', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true),
     ('996 (554) 23-45-67', 'user2', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true),
     ('996 (783) 34-56-78', 'user3', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true),
-    ('12345', '12345', 'qwerty', true);
+    ('12345', '12345', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true);
 
 INSERT INTO accounts (user_phone, currency, balance) VALUES
 ((SELECT phone from USERS where USERNAME like 'user1'), 'USD', 1000.00),
