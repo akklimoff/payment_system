@@ -1,15 +1,15 @@
 server:
-  port: 9989
+  port: 9988
 
 spring:
   datasource:
-    url: jdbc:h2:./db/job_search;AUTO_SERVER=true
+    url: jdbc:h2:./db/payment_system;AUTO_SERVER=true
     username: root
     password: qwerty
     driver-class-name: org.h2.Driver
 
   liquibase:
-    change-log: classpath:db/changelog/master.yaml
+    change-log: classpath:db/changelog/master.yml
 logging:
   level:
     root: info

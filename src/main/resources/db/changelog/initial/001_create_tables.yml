@@ -1,0 +1,145 @@
+databaseChangeLog:
+  - changeSet:
+      id: create tables for Users
+      author: Aktan
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: phone
+                  type: varchar(55)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: username
+                  type: varchar(55)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: accounts
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_phone
+                  type: varchar(55)
+                  constraints:
+                    foreignKeyName: fk_accounts_users
+                    references: users(phone)
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: transactions
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: sender_account_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_transactions_accounts_sender
+                    references: accounts(id)
+                    nullable: false
+              - column:
+                  name: receiver_account_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_transactions_accounts_receiver
+                    references: accounts(id)
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transaction_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: approvals
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: transaction_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_approvals_transactions
+                    references: transactions(id)
+                    nullable: false
+              - column:
+                  name: is_approved
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: approval_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: rollbacks
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: transaction_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_rollbacks_transactions
+                    references: transactions(id)
+                    nullable: false
+              - column:
+                  name: rollback_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(255)
